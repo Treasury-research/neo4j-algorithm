@@ -1,36 +1,22 @@
 require("dotenv").config();
 
-const restify = require("restify");
+const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const debug = require("debug")("app");
-const { schema, rootValue } = require("./schema");
-const jccard = require("./algorithm/jccard");
+cors = require("cors");
+const schema = require("./graphql/schema");
 
-const app = restify.createServer();
+const app = express();
+app.use(cors());
 
 app.get("/", (_req, res, _next) => {
   res.send("ok");
 });
 
-app.get("/test", async (_req, res, _next) => {
-  const data = await jccard();
-  res.send(data);
-});
-
-app.post(
+app.use(
   "/graphql",
   graphqlHTTP({
     schema,
-    rootValue,
-    graphiql: false,
-  })
-);
-
-app.get(
-  "/graphql",
-  graphqlHTTP({
-    schema,
-    rootValue,
     graphiql: true,
   })
 );
