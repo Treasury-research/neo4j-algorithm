@@ -7,6 +7,7 @@ specifiers:
   express: ^4.18.1
   express-graphql: ^0.12.0
   graphql: ^16.5.0
+  ioredis: ^5.0.4
   mocha: ^10.0.0
   neo4j-driver: ^4.4.5
   nodemon: ^2.0.16
@@ -18,6 +19,7 @@ dependencies:
   express: 4.18.1
   express-graphql: 0.12.0_graphql@16.5.0
   graphql: 16.5.0
+  ioredis: 5.0.4
   neo4j-driver: 4.4.5
 
 devDependencies:
@@ -31,6 +33,10 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.9
+    dev: false
+
+  /@ioredis/commands/1.1.1:
+    resolution: {integrity: sha512-fsR4P/ROllzf/7lXYyElUJCheWdTJVJvOTps8v9IWKFATxR61ANOlnoPqhH099xYLrJGpc2ZQ28B3rMeUt5VQg==}
     dev: false
 
   /@sindresorhus/is/0.14.0:
@@ -252,6 +258,11 @@ packages:
       mimic-response: 1.0.1
     dev: true
 
+  /cluster-key-slot/1.1.0:
+    resolution: {integrity: sha512-2Nii8p3RwAPiFwsnZvukotvow2rIHM+yQ6ZcBXGHdniadkYGZYiGmkHJIbZPIV9nfv7m/U1IPMVVcAhoWFeklw==}
+    engines: {node: '>=0.10.0'}
+    dev: false
+
   /color-convert/2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
     engines: {node: '>=7.0.0'}
@@ -370,6 +381,11 @@ packages:
   /defer-to-connect/1.1.3:
     resolution: {integrity: sha512-0ISdNousHvZT2EiFlZeZAHBUvSxmKswVCEf8hW7KWgG4a8MVEu/3Vb6uWYozkjylyCxe0JBIiRB1jV45S70WVQ==}
     dev: true
+
+  /denque/2.0.1:
+    resolution: {integrity: sha512-tfiWc6BQLXNLpNiR5iGd0Ocu3P3VpxfzFiqubLgMfhfOw9WyvgJBd46CClNn9k3qfbjvT//0cf7AlYRX/OslMQ==}
+    engines: {node: '>=0.10'}
+    dev: false
 
   /depd/1.1.2:
     resolution: {integrity: sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=}
@@ -739,6 +755,23 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /ioredis/5.0.4:
+    resolution: {integrity: sha512-qFJw3MnPNsJF1lcIOP3vztbsasOXK3nDdNAgjQj7t7/Bn/w10PGchTOpqylQNxjzPbLoYDu34LjeJtSWiKBntQ==}
+    engines: {node: '>=12.22.0'}
+    dependencies:
+      '@ioredis/commands': 1.1.1
+      cluster-key-slot: 1.1.0
+      debug: 4.3.4
+      denque: 2.0.1
+      lodash.defaults: 4.2.0
+      lodash.isarguments: 3.1.0
+      redis-errors: 1.2.0
+      redis-parser: 3.0.0
+      standard-as-callback: 2.1.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /ipaddr.js/1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
     engines: {node: '>= 0.10'}
@@ -851,6 +884,14 @@ packages:
     dependencies:
       p-locate: 5.0.0
     dev: true
+
+  /lodash.defaults/4.2.0:
+    resolution: {integrity: sha1-0JF4cW/+pN3p5ft7N/bwgCJ0WAw=}
+    dev: false
+
+  /lodash.isarguments/3.1.0:
+    resolution: {integrity: sha1-L1c9hcaiQon/AGY7SRwdM4/zRYo=}
+    dev: false
 
   /log-symbols/4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
@@ -1195,6 +1236,18 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /redis-errors/1.2.0:
+    resolution: {integrity: sha1-62LSrbFeTq9GEMBK/hUpOEJQq60=}
+    engines: {node: '>=4'}
+    dev: false
+
+  /redis-parser/3.0.0:
+    resolution: {integrity: sha1-tm2CjNyv5rS4pCin3vTGvKwxyLQ=}
+    engines: {node: '>=4'}
+    dependencies:
+      redis-errors: 1.2.0
+    dev: false
+
   /regenerator-runtime/0.13.9:
     resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
     dev: false
@@ -1313,6 +1366,10 @@ packages:
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
     dev: true
+
+  /standard-as-callback/2.1.0:
+    resolution: {integrity: sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==}
+    dev: false
 
   /statuses/1.5.0:
     resolution: {integrity: sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=}

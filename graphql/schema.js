@@ -6,10 +6,12 @@ const {
   GraphQLList,
   GraphQLEnumType,
 } = require("graphql");
+const debug = require("debug")("app");
 
 const SimilarityType = require("./type/similarity");
 const jccard = require("../algorithm/jccard");
-const debug = require("debug")("app");
+const redis = require("../utils/redis");
+const { NEO4J_PREFIX } = require("../constants");
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -45,6 +47,14 @@ const RootQuery = new GraphQLObjectType({
       async resolve(_parent, args) {
         try {
           const { address, formula, relationship } = args;
+          const key = `${NEO4J_PREFIX}:${address}-${formula}-${relationship}`;
+
+          const cache = await redis.get(key);
+          if (cache) {
+            debug("cache");
+            return JSON.parse(cache);
+          }
+
           const { records } = await jccard(address, formula, relationship);
 
           debug("args", address, formula, relationship);
@@ -57,6 +67,14 @@ const RootQuery = new GraphQLObjectType({
               similarity: _fields[2],
             });
           });
+
+          // EX seconds
+          await redis.set(
+            key,
+            JSON.stringify(data),
+            "EX",
+            +process.env.REDIS_EXPIRE || 1 * 60
+          );
           return data;
         } catch (error) {
           debug("error", error);
