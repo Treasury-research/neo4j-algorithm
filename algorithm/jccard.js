@@ -10,7 +10,7 @@ const jccard = async (address, formula, relationship) => {
   RETURN addr1.address AS from,
         addr2.address AS to,
        gds${
-         process.env.NEO4J_ALPHA === "1" ? "alpha." : "."
+         process.env.NEO4J_ALPHA === "1" ? ".alpha." : "."
        }similarity.${formula.toLowerCase()}(add1Event, add2Event) AS similarity
   ORDER BY similarity DESC limit 20`;
   debug("cypher", cypher);
