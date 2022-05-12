@@ -37,8 +37,9 @@ const RootQuery = new GraphQLObjectType({
           type: new GraphQLEnumType({
             name: "relationship",
             values: {
-              FOLLOW: { value: "FOLLOW" },
-              ATTEND: { value: "ATTEND" },
+              RSS3_Follow: { value: "FOLLOW{source:'rss3'}" },
+              Cyberconnect_Follow: { value: "FOLLOW{source:'CyberConnect'}" },
+              Poap: { value: "ATTEND" },
             }, // FOLLOW || ATTEND
           }),
         },
