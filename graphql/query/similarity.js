@@ -12,10 +12,10 @@ const similarityResolve = () => {
   return {
     JACCARD: handle(SIMILARITY.JACCARD),
     OVERLAP: handle(SIMILARITY.OVERLAP),
-    COSINE: handle(SIMILARITY.COSINE),
-    PEARSON: handle(SIMILARITY.PEARSON),
-    EUCLIDEANDISTANCE: handle(SIMILARITY.EUCLIDEANDISTANCE),
-    EUCLIDEAN: handle(SIMILARITY.EUCLIDEAN),
+    // COSINE: handle(SIMILARITY.COSINE),
+    // PEARSON: handle(SIMILARITY.PEARSON),
+    // EUCLIDEANDISTANCE: handle(SIMILARITY.EUCLIDEANDISTANCE),
+    // EUCLIDEAN: handle(SIMILARITY.EUCLIDEAN),
   };
 };
 
@@ -34,6 +34,7 @@ const handle = (algorithm) => {
         const { address, socialConnect, limit, offset } = args;
         const key = `${NEO4J_PREFIX}:${address}-${algorithm}-${socialConnect}-${limit}-${offset}`;
 
+        debug("key", key);
         const cache = await redis.get(key);
         if (cache) {
           debug("cache");
