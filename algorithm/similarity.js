@@ -1,14 +1,14 @@
 const debug = require("debug")("app");
 const driver = require("../utils/neo4j");
 
-const jccard = async (address, formula, relationship) => {
+const similarity = async (address, formula, relationship) => {
   const cypher = `
   MATCH (addr1:Addr {address: '${address.toLowerCase()}'})-[:${relationship}]->(event1)
   WITH addr1, collect(id(event1)) AS add1Event
   MATCH (addr2:Addr)-[:${relationship}]->(event2) WHERE addr1 <> addr2
   WITH addr1, add1Event, addr2, collect(id(event2)) AS add2Event
-  RETURN addr1.address AS from,
-        addr2.address AS to,
+  RETURN
+       addr2.address AS address,
        gds${
          process.env.NEO4J_ALPHA === "1" ? ".alpha." : "."
        }similarity.${formula.toLowerCase()}(add1Event, add2Event) AS similarity
@@ -23,4 +23,6 @@ const jccard = async (address, formula, relationship) => {
   return result;
 };
 
-module.exports = jccard;
+module.exports = {
+  similarity,
+};
