@@ -26,7 +26,7 @@ const handle = (algorithm) => {
       address: { type: new GraphQLNonNull(GraphQLString) },
       limit: { type: GraphQLInt, defaultValue: 20 },
       offset: { type: GraphQLInt, defaultValue: 0 },
-      socialConnect: { type: SocialType },
+      socialConnect: { type: new GraphQLNonNull(SocialType) },
     },
 
     async resolve(_parent, args, _context) {
