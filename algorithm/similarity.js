@@ -11,7 +11,7 @@ const similarity = async (address, formula, relationship) => {
        addr2.address AS address,
        gds${
         process.env.NEO4J_ALPHA === "1" ? ".alpha." : "."
-      }.similarity.${formula.toLowerCase()}(add1Event, add2Event) AS similarity
+      }similarity.${formula.toLowerCase()}(add1Event, add2Event) AS similarity
   ORDER BY similarity DESC limit 20`;
   debug("cypher", cypher);
   const result = await driver
