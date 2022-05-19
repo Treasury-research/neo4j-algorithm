@@ -32,9 +32,9 @@ const handle = (algorithm) => {
     async resolve(_parent, args, _context) {
       try {
         const { address, socialConnect, limit, offset } = args;
-        // const key = `${NEO4J_PREFIX}:${address}-${algorithm}-${socialConnect}-${limit}-${offset}`;
+        const key = `${NEO4J_PREFIX}:${address}-${algorithm}-${socialConnect}-${limit}-${offset}`;
 
-        // debug("key", key);
+        debug("key", key);
         // const cache = await redis.get(key);
         // if (cache) {
         //   debug("cache");
