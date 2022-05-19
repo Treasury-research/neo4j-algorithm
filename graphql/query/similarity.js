@@ -58,13 +58,14 @@ const handle = (algorithm) => {
 
         result.data = pagination(offset, limit, result.data);
 
+        debug("result %O", result);
         // EX seconds
-        await redis.set(
-          key,
-          JSON.stringify(result),
-          "EX",
-          +process.env.REDIS_EXPIRE || 1 * 60
-        );
+        // await redis.set(
+        //   key,
+        //   JSON.stringify(result),
+        //   "EX",
+        //   +process.env.REDIS_EXPIRE || 1 * 60
+        // );
 
         return result;
       } catch (error) {
