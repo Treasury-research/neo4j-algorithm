@@ -31,6 +31,7 @@ const handle = (algorithm) => {
 
     async resolve(_parent, args, _context) {
       try {
+        /*
         const { address, socialConnect, limit, offset } = args;
 
         const arr = [
@@ -70,7 +71,9 @@ const handle = (algorithm) => {
         result.data = pagination(offset, limit, result.data);
 
         return result;
-        /*
+
+        */
+
         const { address, socialConnect, limit, offset } = args;
         const key = `${NEO4J_PREFIX}:${address}-${algorithm}-${socialConnect}-${limit}-${offset}`;
 
@@ -108,8 +111,6 @@ const handle = (algorithm) => {
         );
 
         return result;
-
-        */
       } catch (error) {
         debug("error", error);
         throw error;
