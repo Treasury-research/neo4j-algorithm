@@ -86,7 +86,7 @@ const handle = (algorithm) => {
 
         const { records } = await similarity(address, algorithm, socialConnect);
 
-        debug("records %O", records);
+        // debug("records %O", records);
         debug("args", address, socialConnect, socialConnect);
         const result = {
           total: records.length >= 20 ? 20 : records.length,
@@ -101,7 +101,7 @@ const handle = (algorithm) => {
 
         result.data = pagination(offset, limit, result.data);
 
-        debug("result %O", result);
+        // debug("result %O", result);
         // EX seconds
         await redis.set(
           key,
