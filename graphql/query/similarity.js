@@ -32,17 +32,18 @@ const handle = (algorithm) => {
     async resolve(_parent, args, _context) {
       try {
         const { address, socialConnect, limit, offset } = args;
-        const key = `${NEO4J_PREFIX}:${address}-${algorithm}-${socialConnect}-${limit}-${offset}`;
+        // const key = `${NEO4J_PREFIX}:${address}-${algorithm}-${socialConnect}-${limit}-${offset}`;
 
-        debug("key", key);
-        const cache = await redis.get(key);
-        if (cache) {
-          debug("cache");
-          return JSON.parse(cache);
-        }
+        // debug("key", key);
+        // const cache = await redis.get(key);
+        // if (cache) {
+        //   debug("cache");
+        //   return JSON.parse(cache);
+        // }
 
         const { records } = await similarity(address, algorithm, socialConnect);
 
+        debug("records %O", records);
         debug("args", address, socialConnect, socialConnect);
         const result = {
           total: records.length >= 20 ? 20 : records.length,
