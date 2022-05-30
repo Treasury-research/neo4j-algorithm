@@ -5,7 +5,9 @@ const similarity = async (address, formula, relationship) => {
   const cypher = `
   MATCH (addr1:Addr {address: '${address.toLowerCase()}'})-[:${relationship}]->(event1)
   WITH addr1, collect(id(event1)) AS add1Event
-  MATCH (addr2:Addr)-[:${relationship}]->(event2) WHERE addr1 <> addr2
+  MATCH (addr1:Addr {address: '${address.toLowerCase()}'})-[:${relationship}]->(addr4:Addr)  
+  WITH addr1, add1Event, collect(id(addr4)) AS add4Addr
+  MATCH (addr2:Addr)-[:${relationship}]->(event2) WHERE addr1 <> addr2 and not id(addr2) IN add4Addr
   WITH addr1, add1Event, addr2, collect(id(event2)) AS add2Event
   RETURN
        addr2.address AS address,
